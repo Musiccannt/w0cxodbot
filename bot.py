@@ -14,13 +14,7 @@ from songs import SONGS, ITEMS_PER_PAGE, PRESAVE_SONG
 TOKEN = os.getenv("BOT_TOKEN")
 
 if not TOKEN:
-# Этот код покажет нам, что именно видит сервер
-all_vars = list(os.environ.keys())
-print(f"DEBUG: Я вижу следующие переменные: {all_vars}")
-
-TOKEN = os.getenv("BOT_TOKEN")
-if not TOKEN:
-    raise Exception(f"BOT_TOKEN отсутствует! Список доступных: {all_vars}")
+    raise Exception("BOT_TOKEN не найден в переменных окружения!")
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
