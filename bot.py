@@ -326,6 +326,21 @@ async def send_to_all(message: types.Message):
         except Exception: failed += 1
     await status_msg.edit_text(f"✅ Рассылка завершена!\n📤 Отправлено: {success}\n❌ Ошибок: {failed}")
 
+@dp.message(Command("stats"))
+async def show_stats(message: types.Message):
+    if message.from_user.id not in ADMINS:
+        await message.answer("❌ Нет прав.")
+        return
+    active_users = len(quote_counter)
+    await message.answer(
+        f"📊 **Статистика бота**\n\n"
+        f"👥 Всего подписчиков: {len(users)}\n"
+        f"🔥 Активных пользователей: {active_users}\n"
+        f"📖 Всего цитат выдано: {sum(quote_counter.values())}",
+        parse_mode="Markdown"
+    )
+
+
 # ========== ОБРАБОТЧИКИ ТЕКСТОВЫХ КНОПОК ==========
 
 @dp.message(F.text.in_([LEXICON["ru"]["btn_quote"], LEXICON["en"]["btn_quote"]]))
