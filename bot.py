@@ -2,18 +2,21 @@ import asyncio
 import random
 import json
 import os
-from aiogram import Bot, Dispatcher, types, F
+from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.types import FSInputFile
 
-from config import TOKEN
 from quotes import QUOTES
 from songs import SONGS, ITEMS_PER_PAGE, PRESAVE_SONG
 
+TOKEN = os.getenv("BOT_TOKEN")
+
+if not TOKEN:
+    raise Exception("BOT_TOKEN не найден в переменных окружения!")
+
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
-
 # ========== НАСТРОЙКИ ==========
 ADMINS = [1107815483]
 USERS_FILE = "users.json"
